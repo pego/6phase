@@ -1,0 +1,21 @@
+{
+  "name": "6phase",
+  "version": "0.1.0",
+  "description": "Mandatory 6-phase development workflow skill — brainstorm, plan, develop, test, document, commit.",
+  "keywords": [
+    "skill",
+    "workflow",
+    "development",
+    "best-practices",
+    "ai-agent",
+    "claude",
+    "cursor"
+  ],
+  "author": "pego",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pego/6phase"
+  },
+  "homepage": "https://github.com/pego/6phase#readme"
+}
