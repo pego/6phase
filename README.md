@@ -54,9 +54,37 @@ npx skills add ./path/to/6phase
 
 The skill activates at the start of every prompt session. It determines which phase your current work is in and follows the process from that point.
 
+## How It Works
+
+The skill is structured so that only what's needed is loaded into context at any given time.
+
+- **Session start**: a lightweight router (~70 lines) loads and triages the task
+- **Triage result**: tasks are classified as Fast track (P3→P6) or Full track (P1→P6)
+- **On-demand loading**: phase instructions load only when that phase is active — prior phases are not in context
+- **Phase tracking**: structural markers (`[6PHASE: P3-DEV]`) in the conversation record which phase is current
+- **Approval gates**: phases P1, P2, and P4 require explicit user sign-off before the next phase begins
+
+### Skill Structure
+
+```
+skills/6phase/
+├── SKILL.md              # Router (loaded at session start)
+├── phases/
+│   ├── p1-brainstorm.md
+│   ├── p2-plan.md
+│   ├── p3-dev.md
+│   ├── p4-approve.md
+│   ├── p5-docs.md
+│   └── p6-commit.md
+└── shared/
+    └── conventions.md    # Doc naming, branching, ADRs
+```
+
 ## Quick Reference
 
 ### When to start at which phase
+
+**Full track** — new or non-trivial work that benefits from design and planning:
 
 | Situation | Start at |
 |-----------|----------|
@@ -64,7 +92,15 @@ The skill activates at the start of every prompt session. It determines which ph
 | Approved design, no plan yet | Phase 2 |
 | Approved plan, ready to code | Phase 3 |
 | Code complete, needs testing | Phase 4 |
-| Bug fix or small change (<3 files) | Phase 3 |
+
+**Fast track** — bug fixes, docs-only, config changes, or anything touching fewer than 3 files. Skips design, plan, and docs phases:
+
+| Situation | Track |
+|-----------|-------|
+| Bug fix | P3 → P6 |
+| Docs-only change | P3 → P6 |
+| Config change | P3 → P6 |
+| Change touching ≤3 files | P3 → P6 |
 
 ### Documentation structure
 
