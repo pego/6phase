@@ -1,4 +1,4 @@
-# P4: Approval
+# P4: Review & Test
 
 **Purpose:** Verify the implementation works as expected through testing and user review.
 **Output:** `test-reports/YYYY-MM-DD-<slug>-test-report.md` (read `shared/conventions.md` for naming and directory structure)
@@ -15,3 +15,15 @@
 - Do edge cases behave correctly?
 - Is the user experience acceptable?
 - Are there performance concerns?
+
+## Failure handling
+
+If testing reveals issues:
+- Minor fixes (typos, off-by-one, small logic errors): fix in P3, re-run tests, return to P4.
+- Design-level issues (wrong approach, missing requirements): escalate back to P1 or P2 as appropriate.
+
+Emit when looping back:
+```
+## [6PHASE: P4 → P3 | reason: ...]
+## [6PHASE: P4 → P1 | reason: ...]
+```

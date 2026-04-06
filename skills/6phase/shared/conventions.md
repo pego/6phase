@@ -5,6 +5,7 @@
 Base path: `docs/implementation/`
 File pattern: `{designs,plans,test-reports}/YYYY-MM-DD-<slug>-{design,plan,test-report}.md`
 Slugs: lowercase, hyphen-separated, short+specific.
+Create directories as needed — don't assume the docs structure exists. Build it on first use.
 
 ```
 docs/{STATUS.md, architecture/{overview,system-context,decisions}.md, implementation/{designs,plans,test-reports,release-notes}/, runbooks/{local-dev,troubleshooting,deployment}.md}

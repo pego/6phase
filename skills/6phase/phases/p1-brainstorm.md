@@ -26,3 +26,7 @@ New feature, architecture decision, unclear requirements, multi-subsystem change
 Structure the document around your answers. Let the complexity of the problem drive the length — a simple feature might need 10 lines, a complex one 200. No mandatory section count.
 
 If this changes a technical direction, update the ADR after approval (read `shared/conventions.md` for ADR format).
+
+## Standard track: combined Design & Plan
+
+If the router selected the **standard** track, combine P1 and P2 into a single document: `designs/YYYY-MM-DD-<slug>-design-plan.md`. Start with the design questions above, then append the plan (ordered tasks, files to modify, test strategy) in the same document. One gate, one approval.
