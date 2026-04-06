@@ -31,6 +31,10 @@ If this is a fast-track task (no P5 phase), add a one-line entry to `docs/STATUS
 
 No detail block needed for fast-track tasks.
 
+## Skill delegation
+
+If a commit or PR skill is available, use it for commit message generation and PR creation. 6phase's conventional commits format is the baseline — a specialized skill may add project-specific conventions on top.
+
 ## Done
 
 Docs updated + clean commits pushed + STATUS reflects reality.

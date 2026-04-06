@@ -140,6 +140,20 @@ On a new session for in-progress work, determine current phase:
 - Everything done, not pushed → P6
 - Nothing exists → new task, run triage
 
+## Skill Delegation
+
+At the start of each phase, check the available skills list for any that match the current task's domain. If a relevant skill is installed, use it — it will produce better results than generic instructions for that domain.
+
+This is optional and opportunistic. 6phase works fully standalone. But when a specialized skill is available, lean on it rather than reinventing its expertise.
+
+Examples of when to delegate:
+- P1: the task involves UI work and a design skill is available → use it to inform the design
+- P3: building a React frontend and a React best-practices skill is available → follow its patterns
+- P4: a code-review skill is available → run it as part of the review
+- P6: a commit/PR skill is available → use it for commit formatting
+
+When delegating, 6phase still owns the workflow (phase order, gates, tracking markers). The delegated skill owns the domain expertise within that phase.
+
 ## Quick Reference
 
 | Phase | Purpose | Key output |

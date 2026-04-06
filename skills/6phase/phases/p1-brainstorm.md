@@ -30,3 +30,7 @@ If this changes a technical direction, update the ADR after approval (read `shar
 ## Standard track: combined Design & Plan
 
 If the router selected the **standard** track, combine P1 and P2 into a single document: `designs/YYYY-MM-DD-<slug>-design-plan.md`. Start with the design questions above, then append the plan (ordered tasks, files to modify, test strategy) in the same document. One gate, one approval.
+
+## Skill delegation
+
+Check available skills for any that match the problem domain. Design and brainstorming skills can help explore approaches. Domain-specific skills (e.g., frontend design, infrastructure) can inform constraints and trade-offs you might miss with generic reasoning.

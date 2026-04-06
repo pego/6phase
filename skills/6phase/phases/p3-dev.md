@@ -36,6 +36,10 @@ If development hits a blocker (dependency issue, design flaw, unclear requiremen
 ```
 - Keep work already done; the updated design/plan accounts for it.
 
+## Skill delegation
+
+This is where specialized skills add the most value. Check available skills for any that match the implementation domain — framework best practices (React, Vue, etc.), design systems (shadcn, Tailwind), infrastructure tools, or language-specific patterns. Use them to write better code than generic instructions would produce.
+
 ## Output before P4
 
 Provide: implementation summary, test results, manual test instructions (if applicable).

@@ -27,3 +27,7 @@ Emit when looping back:
 ## [6PHASE: P4 → P3 | reason: ...]
 ## [6PHASE: P4 → P1 | reason: ...]
 ```
+
+## Skill delegation
+
+If a code-review or testing skill is available, use it as part of this phase. It can catch issues that manual review misses — security patterns, accessibility, performance anti-patterns, framework-specific pitfalls.

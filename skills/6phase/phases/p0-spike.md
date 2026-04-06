@@ -26,3 +26,7 @@ Summarize findings for the user:
 4. Recommendation: proceed with design (→ P1), pivot approach, or abandon.
 
 Delete or `.gitignore` spike code — it should not be committed.
+
+## Skill delegation
+
+If a skill related to the technology being explored is available (e.g., a framework-specific skill), use it during the spike — it may answer the feasibility question faster.
