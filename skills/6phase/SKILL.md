@@ -18,6 +18,15 @@ Classify the task before any code:
 
 Higher-complexity signal wins. User can override in either direction.
 
+**Multiple tasks in one request:** If the user asks for multiple unrelated things ("fix the login bug and add dark mode"), triage each independently and run them as separate 6phase cycles, sequentially. Mixing unrelated changes in one cycle muddies commits and makes rollback harder. Related changes that form a single coherent feature can stay in one cycle.
+
+**User-provided artifacts:** If the user brings their own design, plan, or partial implementation, don't redo their work. Skip to the appropriate phase:
+- User provides a design → skip P1, start at P2
+- User provides a plan → skip P1+P2, start at P3
+- User provides code to review/test → skip to P4
+
+Emit: `## [6PHASE: SKIP → Px | reason: user provided ...]`
+
 Emit triage result:
 ```
 ## [6PHASE: TRIAGE → FAST | reason: ...]
@@ -98,6 +107,14 @@ Present the situation to the user with options:
 - Escalate track (fast → standard, standard → full)
 
 Don't wait until P4 to discover the task was 3x bigger than expected.
+
+## Abort
+
+If the user wants to abandon the current cycle ("stop", "never mind", "drop this"), clean up:
+- Unstage any staged changes (`git restore --staged .`)
+- Keep design docs and plans as-is — they document the thinking even if the work was abandoned
+- Add a STATUS.md entry: `cancelled` with a brief reason
+- Emit: `## [6PHASE: ABORT | phase: Px | reason: ...]`
 
 ## Looping Back
 

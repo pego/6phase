@@ -22,5 +22,8 @@ Structure as ordered tasks. Each task should specify:
 - Which files to create or modify
 - What the change does
 - How to test it
+- Rough size: **S** (< 30 min, few lines), **M** (30 min–2 hrs, moderate changes), **L** (2+ hrs, significant complexity)
+
+Size estimates make P3 scope checks meaningful — "task 2 was planned as S but is actually L" is a clear signal to surface early.
 
 Include a test strategy (unit, integration, E2E, manual) and acceptance criteria.
