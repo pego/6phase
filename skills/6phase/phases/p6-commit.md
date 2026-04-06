@@ -1,40 +1,30 @@
 # P6: Commit
 
-**Purpose:** Create clean commits and push. This is the final phase for both full and fast-track workflows.
+**Purpose:** Clean commits and push. Final phase for all tracks.
 
 ## Workflow
 
 `git status` → `git diff` → `git add .` → commit → `git push`
-
-Read `shared/conventions.md` for branching rules.
+See `shared/conventions.md` for branching rules.
 
 ## Conventional Commits
 
-Format: `<type>(<scope>): <subject>`
-Scope is optional. Subject: imperative mood, lowercase, no period, max 72 chars.
+Format: `<type>(<scope>): <subject>` — imperative, lowercase, no period, ≤72 chars. Scope optional.
 
-Types: `feat`(MINOR) `fix`(PATCH) `docs` `refactor` `test` `chore`(build/CI/deps) `perf` `style`(formatting only) `ci`
+Types: `feat`(MINOR) `fix`(PATCH) `docs` `refactor` `test` `chore` `perf` `style` `ci`
 
-Breaking changes: add `!` after type/scope (e.g. `feat!:`) + `BREAKING CHANGE:` footer in body.
-
-Body: what changed, why, modules impacted. Link design/plan/test docs when applicable.
+Breaking: `feat!:` + `BREAKING CHANGE:` footer.
+Body: what, why, modules impacted. Link design/plan/test docs.
 
 **NEVER mention AI tools, assistants, or co-authors in commits. All commits are authored by the developer.**
 
-## Fast-track STATUS.md entry
+## Fast-track STATUS.md
 
-If this is a fast-track task (no P5 phase), add a one-line entry to `docs/STATUS.md` before committing:
+No P5 → add one-line entry to `docs/STATUS.md` before committing:
+`| YYYY-MM-DD | slug | completed | — |`
 
-| Date | Feature | Status | Artifacts |
-|---|---|---|---|
-| YYYY-MM-DD | slug | completed | — |
-
-No detail block needed for fast-track tasks.
-
-## Skill delegation
-
-If a commit or PR skill is available, use it for commit message generation and PR creation. 6phase's conventional commits format is the baseline — a specialized skill may add project-specific conventions on top.
+Use available commit/PR skills for project-specific conventions.
 
 ## Done
 
-Docs updated + clean commits pushed + STATUS reflects reality.
+Docs updated + commits pushed + STATUS reflects reality.

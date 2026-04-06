@@ -7,55 +7,33 @@ description: Mandatory 6-phase development workflow — brainstorm, plan, develo
 
 ## Triage
 
-Classify the task before any code:
+Classify before coding. Higher-complexity signal wins. User can override.
 
 | Signal | Track | Path |
 |---|---|---|
-| Bug fix, docs-only, config, ≤3 files, clear fix | **Fast** | P3 → P6 |
-| Obvious approach, 4-10 files, single concern | **Standard** | P1+P2 → P3 → P4 → P5 → P6 |
+| Bug fix, docs-only, config, ≤3 files | **Fast** | P3 → P6 |
+| Clear approach, 4-10 files, single concern | **Standard** | P1+P2 → P3 → P4 → P5 → P6 |
 | Arch decision, unclear reqs, multi-module, major refactor | **Full** | P1 → P2 → P3 → P4 → P5 → P6 |
-| Unknown feasibility, new tech, need to explore first | **Spike → Full** | P0 → P1 → ... |
+| Unknown feasibility, new tech | **Spike** | P0 → P1 → ... |
 
-Higher-complexity signal wins. User can override in either direction.
+**Multi-task:** Unrelated tasks → separate cycles. Related changes forming one feature → one cycle.
 
-**Multiple tasks in one request:** If the user asks for multiple unrelated things ("fix the login bug and add dark mode"), triage each independently and run them as separate 6phase cycles, sequentially. Mixing unrelated changes in one cycle muddies commits and makes rollback harder. Related changes that form a single coherent feature can stay in one cycle.
+**User artifacts:** User provides design → start P2. Plan → start P3. Code → start P4. Emit: `[6PHASE: SKIP → Px | reason: ...]`
 
-**User-provided artifacts:** If the user brings their own design, plan, or partial implementation, don't redo their work. Skip to the appropriate phase:
-- User provides a design → skip P1, start at P2
-- User provides a plan → skip P1+P2, start at P3
-- User provides code to review/test → skip to P4
+Emit: `## [6PHASE: TRIAGE → FAST|STANDARD|FULL|SPIKE | reason: ...]`
 
-Emit: `## [6PHASE: SKIP → Px | reason: user provided ...]`
+## Tracking
 
-Emit triage result:
-```
-## [6PHASE: TRIAGE → FAST | reason: ...]
-## [6PHASE: TRIAGE → STANDARD | reason: ...]
-## [6PHASE: TRIAGE → FULL | reason: ...]
-## [6PHASE: TRIAGE → SPIKE | reason: ...]
-```
-
-## Phase Tracking
-
-On entering each phase, emit:
-```
-## [6PHASE: Px-NAME]
-```
-Example: `## [6PHASE: P3-DEV]`
-
-If you lose track, scan for the last `[6PHASE: Px-...]` marker to recover position.
+On phase entry, emit: `## [6PHASE: Px-NAME]` (e.g. `P3-DEV`). Lost? Scan for last marker.
 
 ## Gates
 
-⛔ GATE: Do NOT proceed past P1 until the user approves.
-⛔ GATE: Do NOT proceed past P2 until the user approves.
-⛔ GATE: Do NOT proceed past P4 until the user approves.
+⛔ Do NOT proceed past P1, P2, or P4 without user approval.
+Approval = any affirmative: ok, lgtm, go ahead, looks good, yep, ship it, etc.
 
-Approval = any affirmative response: "approved", "go ahead", "ok", "looks good", "lgtm", "yep", "ship it", "do it", thumbs up, etc. Use common sense — if the user is clearly saying yes, that's approval.
+## Phase Files
 
-## Phase Loading
-
-You MUST read the phase file before doing any phase work:
+Read the phase file before doing any phase work:
 
 | Phase | File |
 |---|---|
@@ -69,100 +47,54 @@ You MUST read the phase file before doing any phase work:
 
 ## Standard Track
 
-For medium-complexity tasks where the approach is clear but needs structure. P1 and P2 merge into a single combined Design & Plan document — one gate instead of two.
-
-Output: `designs/YYYY-MM-DD-<slug>-design-plan.md`
-⛔ Single GATE after the combined P1+P2 phase.
-
-After approval, proceed to P3 as normal.
+P1+P2 merged into one document, one gate. Output: `designs/YYYY-MM-DD-<slug>-design-plan.md`
 
 ## Fast Track
 
-Fast-track tasks go P3 → P6 only. No design doc, plan, or docs phase.
+P3 → P6 only. Before P6, show user a brief summary: "Tests pass: yes/no. Here's what changed: ..." P6 includes a one-line STATUS.md entry.
 
-Before P6, present a brief summary of what changed so the user can glance at it. No formal test report needed, but confirm: **"Tests pass: yes/no. Here's what I changed: ..."**
-
-P6 includes a one-line STATUS.md entry for traceability.
-
-If the task turns out bigger than expected, escalate:
-```
-## [6PHASE: ESCALATE → STANDARD | reason: ...]
-## [6PHASE: ESCALATE → FULL | reason: ...]
-```
-- Escalate to P1 if the problem is unclear or the approach is uncertain.
-- Escalate to P2 if the problem is understood but needs a plan.
-- Keep work already done; write design/plan to account for it.
+Escalate if bigger than expected:
+`[6PHASE: ESCALATE → STANDARD|FULL | reason: ...]`
+Escalate to P1 if unclear, P2 if needs plan. Keep work done.
 
 ## Scope Check
 
-During P3, if the work is growing beyond what was planned — more files touched, unexpected complexity, cascading changes — surface it early:
-
-```
-## [6PHASE: SCOPE CHECK | planned: N files/tasks | actual: M | risk: ...]
-```
-
-Present the situation to the user with options:
-- Continue with expanded scope (update the plan to reflect reality)
-- Cut scope (defer parts to a follow-up task)
-- Escalate track (fast → standard, standard → full)
-
-Don't wait until P4 to discover the task was 3x bigger than expected.
+During P3, if work exceeds plan — surface early:
+`[6PHASE: SCOPE CHECK | planned: N | actual: M | risk: ...]`
+Options: expand scope, cut & defer, escalate track.
 
 ## Abort
 
-If the user wants to abandon the current cycle ("stop", "never mind", "drop this"), clean up:
-- Unstage any staged changes (`git restore --staged .`)
-- Keep design docs and plans as-is — they document the thinking even if the work was abandoned
-- Add a STATUS.md entry: `cancelled` with a brief reason
-- Emit: `## [6PHASE: ABORT | phase: Px | reason: ...]`
+User abandons cycle → unstage changes, keep docs, add STATUS.md `cancelled` entry.
+`[6PHASE: ABORT | phase: Px | reason: ...]`
 
 ## Looping Back
 
-Phases aren't strictly one-way. When a later phase reveals problems, loop back:
-
 | Situation | Go to | Emit |
 |---|---|---|
-| Tests fail (minor fix) | P3 | `[6PHASE: P4 → P3 | reason: ...]` |
-| Design flaw found in dev or test | P1 | `[6PHASE: P3 → P1 | reason: ...]` |
-| Plan wrong but design sound | P2 | `[6PHASE: P3 → P2 | reason: ...]` |
+| Tests fail (minor) | P3 | `[6PHASE: P4 → P3 | reason: ...]` |
+| Design flaw | P1 | `[6PHASE: P3 → P1 | reason: ...]` |
+| Plan wrong, design sound | P2 | `[6PHASE: P3 → P2 | reason: ...]` |
 
-Keep work already done. The updated design/plan accounts for completed work.
+Keep completed work. Updated design/plan accounts for it.
 
 ## Session Resumption
 
-On a new session for in-progress work, determine current phase:
-- Spike code exists, no design doc → P1 (spike is done, move to design)
-- Design doc exists, no plan → P2
-- Combined design-plan exists, implementation incomplete → P3
-- Plan exists, implementation incomplete → P3
-- Implementation complete, no test report → P4
-- Test report exists, docs not updated → P5
-- Everything done, not pushed → P6
-- Nothing exists → new task, run triage
+Determine phase from artifacts: spike exists no design → P1 | design no plan → P2 | plan/design-plan, incomplete impl → P3 | impl complete no test report → P4 | test report, docs outdated → P5 | all done not pushed → P6 | nothing → triage.
 
 ## Skill Delegation
 
-At the start of each phase, check the available skills list for any that match the current task's domain. If a relevant skill is installed, use it — it will produce better results than generic instructions for that domain.
-
-This is optional and opportunistic. 6phase works fully standalone. But when a specialized skill is available, lean on it rather than reinventing its expertise.
-
-Examples of when to delegate:
-- P1: the task involves UI work and a design skill is available → use it to inform the design
-- P3: building a React frontend and a React best-practices skill is available → follow its patterns
-- P4: a code-review skill is available → run it as part of the review
-- P6: a commit/PR skill is available → use it for commit formatting
-
-When delegating, 6phase still owns the workflow (phase order, gates, tracking markers). The delegated skill owns the domain expertise within that phase.
+At each phase, check available skills for domain matches. Use them — they beat generic instructions. 6phase owns the workflow; delegated skills own domain expertise. Fully optional.
 
 ## Quick Reference
 
-| Phase | Purpose | Key output |
+| Phase | Purpose | Output |
 |---|---|---|
-| P0 Spike | Explore feasibility with throwaway code | Findings + recommendation |
-| P1 Brainstorm | Explore problem, design solution | Design doc |
-| P2 Plan | Break design into ordered tasks | Implementation plan |
-| P1+P2 Combined | Design & plan in one (standard track) | Combined design-plan doc |
-| P3 Dev | Implement the plan | Working code + passing tests |
-| P4 Review & Test | Verify it works, user approves | Test report |
-| P5 Docs | Update project docs, ADRs, STATUS | Updated documentation |
-| P6 Commit | Clean commits, push | Committed & pushed code |
+| P0 | Spike: explore feasibility | Findings |
+| P1 | Brainstorm: design solution | Design doc |
+| P2 | Plan: ordered tasks | Plan |
+| P1+P2 | Combined (standard track) | Design-plan |
+| P3 | Dev: implement | Code + tests |
+| P4 | Review & test | Test report |
+| P5 | Docs: update project docs | Documentation |
+| P6 | Commit & push | Commits |

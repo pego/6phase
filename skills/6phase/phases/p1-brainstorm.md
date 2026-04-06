@@ -1,36 +1,27 @@
 # P1: Brainstorm
 
-**Purpose:** Explore the problem space and design a solution before writing code.
-**Output:** `designs/YYYY-MM-DD-<slug>-design.md` (read `shared/conventions.md` for naming and directory structure)
+**Purpose:** Design a solution before writing code.
+**Output:** `designs/YYYY-MM-DD-<slug>-design.md` (see `shared/conventions.md`)
 
-## When to use
+## Answer before writing
 
-New feature, architecture decision, unclear requirements, multi-subsystem change, major refactor.
-
-## Before writing the design, answer these questions
-
-- What problem are we actually solving? (not what feature — what problem)
+- What problem are we solving? (not what feature — what problem)
 - What happens if we don't build this?
 - Who is affected and how?
-- What constraints exist? (tech, compliance, performance, budget, timeline)
-- What does the current state look like?
-- What are 2-3 genuinely different approaches? (not "do it" vs "don't do it")
-- For each approach: what are the real trade-offs? What breaks? What gets easier?
-- What's the riskiest assumption in the proposed solution?
-- How will we know it works? (testing, observability)
-- How do we roll back if it doesn't?
+- Constraints? (tech, compliance, performance, budget, timeline)
+- Current state?
+- 2-3 genuinely different approaches? Trade-offs of each?
+- Riskiest assumption?
+- How will we know it works?
+- Rollback plan?
 - What's still unclear?
 
 ## Writing the design
 
-Structure the document around your answers. Let the complexity of the problem drive the length — a simple feature might need 10 lines, a complex one 200. No mandatory section count.
+Structure around your answers. Length matches complexity. If this changes technical direction, update ADR after approval (see `shared/conventions.md`).
 
-If this changes a technical direction, update the ADR after approval (read `shared/conventions.md` for ADR format).
+## Standard track
 
-## Standard track: combined Design & Plan
+If **standard** track: combine P1+P2 into `designs/YYYY-MM-DD-<slug>-design-plan.md`. Design questions above + plan (ordered tasks, files, test strategy). One gate.
 
-If the router selected the **standard** track, combine P1 and P2 into a single document: `designs/YYYY-MM-DD-<slug>-design-plan.md`. Start with the design questions above, then append the plan (ordered tasks, files to modify, test strategy) in the same document. One gate, one approval.
-
-## Skill delegation
-
-Check available skills for any that match the problem domain. Design and brainstorming skills can help explore approaches. Domain-specific skills (e.g., frontend design, infrastructure) can inform constraints and trade-offs you might miss with generic reasoning.
+Use available design/domain skills to inform approaches and trade-offs.
