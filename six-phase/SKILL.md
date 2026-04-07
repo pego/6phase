@@ -1,6 +1,6 @@
 ---
 name: six-phase
-description: Mandatory 6-phase development workflow — brainstorm, plan, develop, review & test, document, commit. Use this skill for ANY development task: new features, bug fixes, refactors, infrastructure changes, config changes, or documentation updates. Whenever the user asks to build, fix, add, change, remove, or implement something in code, use this workflow. Even simple tasks go through the fast track (P3 → P6). Triggers on any coding request, implementation task, or software change.
+description: "Mandatory 6-phase development workflow: brainstorm, plan, develop, review and test, document, commit. Use this skill for ANY development task - new features, bug fixes, refactors, infrastructure changes, config changes, or documentation updates. Whenever the user asks to build, fix, add, change, remove, or implement something in code, use this workflow. Even simple tasks go through the fast track (P3 to P6). Triggers on any coding request, implementation task, or software change."
 ---
 
 # 6phase — Router
